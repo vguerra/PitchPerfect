@@ -11,19 +11,21 @@ import AVFoundation
 
 class PlaySoundsViewController: UIViewController {
 
-    var audioPlayer : AVAudioPlayer!
+    var audioPlayer: AVAudioPlayer!
+    var receivedAudio: RecordedAudio!
+    
+    var audioEngine: AVAudioEngine!
+    var audioFile: AVAudioFile!
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
-        if var filePath = NSBundle.mainBundle().pathForResource("movie_quote", ofType: "mp3") {
-            var fileURL = NSURL.fileURLWithPath(filePath)
-            audioPlayer = AVAudioPlayer(contentsOfURL: fileURL, error: nil)
-            audioPlayer.enableRate = true
-        } else {
-            println("Unable to get movie_quote.mpe file")
-        }
+//        // Do any additional setup after loading the view.
+        audioEngine = AVAudioEngine()
+        audioFile = AVAudioFile(forReading: receivedAudio.filePathUrl, error: nil)
+        
+        audioPlayer = AVAudioPlayer(contentsOfURL: receivedAudio.filePathUrl, error: nil)
+        audioPlayer.enableRate = true
     }
 
     override func didReceiveMemoryWarning() {
@@ -50,10 +52,41 @@ class PlaySoundsViewController: UIViewController {
         playAudio(2.0)
     }
     
-    @IBAction func stopAudio(sender: UIButton) {
-        audioPlayer.stop()
+    @IBAction func playChipmunk(sender: UIButton) {
+        playAudioWithVariablePitch(1000)
     }
     
+    @IBAction func playDarthVader(sender: UIButton) {
+        playAudioWithVariablePitch(-1000)
+    }
+    
+    @IBAction func stopAudio(sender: UIButton) {
+        audioPlayer.stop()
+        audioEngine.stop()
+        audioEngine.reset()
+    }
+    
+    func playAudioWithVariablePitch(pitch: Float) {
+        audioPlayer.stop()
+        audioEngine.stop()
+        audioEngine.reset()
+        
+        var playerNode = AVAudioPlayerNode()
+        audioEngine.attachNode(playerNode)
+
+        var changePitchNode = AVAudioUnitTimePitch()
+        changePitchNode.pitch = pitch
+        audioEngine.attachNode(changePitchNode)
+        
+        audioEngine.connect(playerNode, to: changePitchNode, format: nil)
+        audioEngine.connect(changePitchNode, to: audioEngine.outputNode, format: nil)
+        
+        playerNode.scheduleFile(audioFile, atTime: nil, completionHandler: nil)
+        audioEngine.startAndReturnError(nil)
+        
+        playerNode.play()
+    
+    }
     func playAudio(atRage: Float) {
         audioPlayer.stop()
         audioPlayer.currentTime = 0.0
