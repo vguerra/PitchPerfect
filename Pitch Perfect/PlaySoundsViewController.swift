@@ -33,17 +33,6 @@ class PlaySoundsViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-    
     @IBAction func playSlowAudio(sender: UIButton) {
         playAudio(0.5)
     }
@@ -62,15 +51,12 @@ class PlaySoundsViewController: UIViewController {
     
     @IBAction func stopAudio(sender: UIButton) {
         audioPlayer.stop()
-        audioEngine.stop()
-        audioEngine.reset()
+        stopAudioEngine()
     }
     
     func playAudioWithVariablePitch(pitch: Float) {
         audioPlayer.stop()
-        audioEngine.stop()
-        audioEngine.reset()
-        
+        stopAudioEngine()
         var playerNode = AVAudioPlayerNode()
         audioEngine.attachNode(playerNode)
 
@@ -89,9 +75,15 @@ class PlaySoundsViewController: UIViewController {
     }
     func playAudio(atRage: Float) {
         audioPlayer.stop()
+        stopAudioEngine()
         audioPlayer.currentTime = 0.0
         audioPlayer.rate = atRage
         audioPlayer.play()
+    }
+    
+    func stopAudioEngine() {
+        audioEngine.stop()
+        audioEngine.reset()
     }
     
 }
