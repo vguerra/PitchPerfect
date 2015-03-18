@@ -11,7 +11,6 @@ import AVFoundation
 
 class PlaySoundsViewController: UIViewController {
 
-    var audioPlayer: AVAudioPlayer!
     var receivedAudio: RecordedAudio!
     
     var audioEngine: AVAudioEngine!
@@ -23,9 +22,6 @@ class PlaySoundsViewController: UIViewController {
 //        // Do any additional setup after loading the view.
         audioEngine = AVAudioEngine()
         audioFile = AVAudioFile(forReading: receivedAudio.filePathUrl, error: nil)
-        
-        audioPlayer = AVAudioPlayer(contentsOfURL: receivedAudio.filePathUrl, error: nil)
-        audioPlayer.enableRate = true
     }
 
     override func didReceiveMemoryWarning() {
@@ -34,51 +30,77 @@ class PlaySoundsViewController: UIViewController {
     }
     
     @IBAction func playSlowAudio(sender: UIButton) {
-        playAudio(0.5)
+        playWithRateAndPitch(rate: 0.6)
     }
 
     @IBAction func playFastAudio(sender: UIButton) {
-        playAudio(2.0)
+        playWithRateAndPitch(rate: 2.0)
     }
     
     @IBAction func playChipmunk(sender: UIButton) {
-        playAudioWithVariablePitch(1000)
+        playWithRateAndPitch(pitch: 1000)
     }
     
     @IBAction func playDarthVader(sender: UIButton) {
-        playAudioWithVariablePitch(-1000)
+        playWithRateAndPitch(pitch: -1000)
     }
     
     @IBAction func stopAudio(sender: UIButton) {
-        audioPlayer.stop()
         stopAudioEngine()
     }
     
-    func playAudioWithVariablePitch(pitch: Float) {
-        audioPlayer.stop()
-        stopAudioEngine()
-        var playerNode = AVAudioPlayerNode()
-        audioEngine.attachNode(playerNode)
-
-        var changePitchNode = AVAudioUnitTimePitch()
-        changePitchNode.pitch = pitch
-        audioEngine.attachNode(changePitchNode)
+    @IBAction func playReverb(sender: UIButton) {
+        let reverbNode = AVAudioUnitReverb()
+        reverbNode.loadFactoryPreset(AVAudioUnitReverbPreset.Cathedral)
+        reverbNode.wetDryMix = 80.0
         
-        audioEngine.connect(playerNode, to: changePitchNode, format: nil)
-        audioEngine.connect(changePitchNode, to: audioEngine.outputNode, format: nil)
+        playAudioWithNodeEffect(reverbNode);
+    }
+    
+    @IBAction func playDelay(sender: UIButton) {
+        let delayNode = AVAudioUnitDelay()
+        delayNode.delayTime = 0.5
+
+        playAudioWithNodeEffect(delayNode)
+    }
+    
+    @IBAction func playDistortion(sender: UIButton) {
+        let distortionNode = AVAudioUnitDistortion()
+        distortionNode.loadFactoryPreset(AVAudioUnitDistortionPreset.MultiBrokenSpeaker)
+        distortionNode.wetDryMix = 50.0
+        
+        playAudioWithNodeEffect(distortionNode)
+    }
+    
+    func playWithRateAndPitch(rate: Float = 1.0, pitch: Float = 1.0) {
+        let withRatePitchNode = AVAudioUnitTimePitch()
+        withRatePitchNode.rate = rate
+        withRatePitchNode.pitch = pitch
+        
+        playAudioWithNodeEffect(withRatePitchNode)
+
+    }
+    func playAudioWithVariablePitch(pitch: Float) {
+        let changePitchNode = AVAudioUnitTimePitch()
+        changePitchNode.pitch = pitch
+        
+        playAudioWithNodeEffect(changePitchNode)
+    }
+    
+    func playAudioWithNodeEffect(audioNodeEffect: AVAudioNode) {
+        stopAudioEngine()
+        
+        let playerNode = AVAudioPlayerNode()
+        audioEngine.attachNode(playerNode)
+        
+        audioEngine.attachNode(audioNodeEffect)
+        
+        audioEngine.connect(playerNode, to: audioNodeEffect, format: nil)
+        audioEngine.connect(audioNodeEffect, to: audioEngine.outputNode, format: nil)
         
         playerNode.scheduleFile(audioFile, atTime: nil, completionHandler: nil)
         audioEngine.startAndReturnError(nil)
-        
         playerNode.play()
-    
-    }
-    func playAudio(atRage: Float) {
-        audioPlayer.stop()
-        stopAudioEngine()
-        audioPlayer.currentTime = 0.0
-        audioPlayer.rate = atRage
-        audioPlayer.play()
     }
     
     func stopAudioEngine() {
