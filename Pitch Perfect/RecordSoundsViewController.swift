@@ -60,6 +60,12 @@ class RecordSoundsViewController: UIViewController, AVAudioRecorderDelegate {
         audioRecorder.record()
     }
 
+    @IBAction func stopRecordAudio() {
+        var audioSession = AVAudioSession.sharedInstance()
+        audioRecorder.stop()
+        audioSession.setActive(false, error: nil)
+    }
+
     func audioRecorderDidFinishRecording(recorder: AVAudioRecorder!, successfully flag: Bool) {
         if (flag) {
             recordedAudio = RecordedAudio(filePathUrl: recorder.url, title: recorder.url.lastPathComponent!)
@@ -74,9 +80,5 @@ class RecordSoundsViewController: UIViewController, AVAudioRecorderDelegate {
             playSoundsVC.receivedAudio = data
         }
     }
-    @IBAction func stopRecordAudio() {
-        var audioSession = AVAudioSession.sharedInstance()
-        audioRecorder.stop()
-        audioSession.setActive(false, error: nil)
-    }
+    
 }

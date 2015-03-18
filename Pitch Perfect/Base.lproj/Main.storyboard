@@ -170,55 +170,41 @@
                                     <action selector="playDarthVader:" destination="9VV-Be-9EX" eventType="touchUpInside" id="9mb-vJ-YZY"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CAU-sj-9Nb">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="82G-7K-LVm">
                                 <rect key="frame" x="-23" y="-15" width="46" height="30"/>
-                                <state key="normal" title="Distortion">
+                                <state key="normal" image="Echo">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
-                                <variation key="widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="67" y="408" width="67" height="30"/>
-                                </variation>
-                                <connections>
-                                    <action selector="playDistortion:" destination="9VV-Be-9EX" eventType="touchUpInside" id="tqv-8L-lrf"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gcF-zV-RVQ">
-                                <rect key="frame" x="-23" y="-15" width="46" height="30"/>
-                                <state key="normal" title="reverb">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <variation key="widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="194" y="401" width="44" height="30"/>
-                                </variation>
-                                <connections>
-                                    <action selector="playReverb:" destination="9VV-Be-9EX" eventType="touchUpInside" id="Lte-C6-EiA"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="82G-7K-LVm">
-                                <rect key="frame" x="-23" y="-15" width="46" height="30"/>
-                                <state key="normal" title="delay">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <variation key="widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="275" y="447" width="49" height="30"/>
-                                </variation>
                                 <connections>
                                     <action selector="playDelay:" destination="9VV-Be-9EX" eventType="touchUpInside" id="lfS-77-xuX"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gcF-zV-RVQ">
+                                <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                                <state key="normal" image="Reverb">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="playReverb:" destination="9VV-Be-9EX" eventType="touchUpInside" id="Lte-C6-EiA"/>
                                 </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="gcF-zV-RVQ" firstAttribute="top" secondItem="PPt-DS-T0k" secondAttribute="bottom" constant="40" id="2RQ-yv-NGr"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="82G-7K-LVm" secondAttribute="trailing" constant="30" id="4ee-34-MZa"/>
+                            <constraint firstItem="gcF-zV-RVQ" firstAttribute="leading" secondItem="pHo-HN-YN2" secondAttribute="leadingMargin" constant="30" id="4pq-ID-iIK"/>
                             <constraint firstAttribute="centerX" secondItem="5Fj-dm-wpE" secondAttribute="centerX" id="CJH-Hx-KNF"/>
                             <constraint firstItem="s0v-it-sxf" firstAttribute="top" secondItem="5Fj-dm-wpE" secondAttribute="bottom" constant="20" id="GLP-na-ztp"/>
-                            <constraint firstItem="vx8-5J-2uy" firstAttribute="top" secondItem="tUE-by-9LO" secondAttribute="bottom" constant="50" id="I0I-JF-PoM"/>
+                            <constraint firstItem="vx8-5J-2uy" firstAttribute="top" secondItem="tUE-by-9LO" secondAttribute="bottom" constant="40" id="I0I-JF-PoM"/>
                             <constraint firstAttribute="trailingMargin" secondItem="kgG-Qy-QfJ" secondAttribute="trailing" constant="30" id="JcD-0T-VaN"/>
                             <constraint firstItem="PPt-DS-T0k" firstAttribute="leading" secondItem="pHo-HN-YN2" secondAttribute="leadingMargin" constant="30" id="PHg-iO-lBp"/>
-                            <constraint firstItem="PPt-DS-T0k" firstAttribute="top" secondItem="vx8-5J-2uy" secondAttribute="bottom" constant="50" id="Xwf-m7-E2O"/>
+                            <constraint firstItem="PPt-DS-T0k" firstAttribute="top" secondItem="vx8-5J-2uy" secondAttribute="bottom" constant="40" id="Xwf-m7-E2O"/>
                             <constraint firstAttribute="trailingMargin" secondItem="1m0-qf-7an" secondAttribute="trailing" constant="30" id="kZI-E0-krn"/>
-                            <constraint firstItem="1m0-qf-7an" firstAttribute="top" secondItem="kgG-Qy-QfJ" secondAttribute="bottom" constant="50" id="lQW-Ew-NSP"/>
+                            <constraint firstItem="1m0-qf-7an" firstAttribute="top" secondItem="kgG-Qy-QfJ" secondAttribute="bottom" constant="40" id="lQW-Ew-NSP"/>
                             <constraint firstItem="vx8-5J-2uy" firstAttribute="leading" secondItem="pHo-HN-YN2" secondAttribute="leadingMargin" constant="30" id="mfe-BC-MNK"/>
-                            <constraint firstItem="kgG-Qy-QfJ" firstAttribute="top" secondItem="tUE-by-9LO" secondAttribute="bottom" constant="50" id="xcv-by-KX8"/>
+                            <constraint firstItem="82G-7K-LVm" firstAttribute="top" secondItem="1m0-qf-7an" secondAttribute="bottom" constant="40" id="vpR-3p-ZZu"/>
+                            <constraint firstItem="kgG-Qy-QfJ" firstAttribute="top" secondItem="tUE-by-9LO" secondAttribute="bottom" constant="40" id="xcv-by-KX8"/>
                         </constraints>
                         <variation key="default">
                             <mask key="subviews">
@@ -227,21 +213,24 @@
                                 <exclude reference="kgG-Qy-QfJ"/>
                                 <exclude reference="PPt-DS-T0k"/>
                                 <exclude reference="1m0-qf-7an"/>
-                                <exclude reference="CAU-sj-9Nb"/>
-                                <exclude reference="gcF-zV-RVQ"/>
                                 <exclude reference="82G-7K-LVm"/>
+                                <exclude reference="gcF-zV-RVQ"/>
                             </mask>
                             <mask key="constraints">
-                                <exclude reference="GLP-na-ztp"/>
-                                <exclude reference="kZI-E0-krn"/>
-                                <exclude reference="lQW-Ew-NSP"/>
-                                <exclude reference="CJH-Hx-KNF"/>
+                                <exclude reference="I0I-JF-PoM"/>
+                                <exclude reference="mfe-BC-MNK"/>
                                 <exclude reference="PHg-iO-lBp"/>
                                 <exclude reference="Xwf-m7-E2O"/>
                                 <exclude reference="JcD-0T-VaN"/>
                                 <exclude reference="xcv-by-KX8"/>
-                                <exclude reference="I0I-JF-PoM"/>
-                                <exclude reference="mfe-BC-MNK"/>
+                                <exclude reference="kZI-E0-krn"/>
+                                <exclude reference="lQW-Ew-NSP"/>
+                                <exclude reference="2RQ-yv-NGr"/>
+                                <exclude reference="4pq-ID-iIK"/>
+                                <exclude reference="4ee-34-MZa"/>
+                                <exclude reference="vpR-3p-ZZu"/>
+                                <exclude reference="CJH-Hx-KNF"/>
+                                <exclude reference="GLP-na-ztp"/>
                             </mask>
                         </variation>
                         <variation key="widthClass=compact">
@@ -251,21 +240,24 @@
                                 <include reference="kgG-Qy-QfJ"/>
                                 <include reference="PPt-DS-T0k"/>
                                 <include reference="1m0-qf-7an"/>
-                                <include reference="CAU-sj-9Nb"/>
-                                <include reference="gcF-zV-RVQ"/>
                                 <include reference="82G-7K-LVm"/>
+                                <include reference="gcF-zV-RVQ"/>
                             </mask>
                             <mask key="constraints">
-                                <include reference="GLP-na-ztp"/>
-                                <include reference="kZI-E0-krn"/>
-                                <include reference="lQW-Ew-NSP"/>
-                                <include reference="CJH-Hx-KNF"/>
+                                <include reference="I0I-JF-PoM"/>
+                                <include reference="mfe-BC-MNK"/>
                                 <include reference="PHg-iO-lBp"/>
                                 <include reference="Xwf-m7-E2O"/>
                                 <include reference="JcD-0T-VaN"/>
                                 <include reference="xcv-by-KX8"/>
-                                <include reference="I0I-JF-PoM"/>
-                                <include reference="mfe-BC-MNK"/>
+                                <include reference="kZI-E0-krn"/>
+                                <include reference="lQW-Ew-NSP"/>
+                                <include reference="2RQ-yv-NGr"/>
+                                <include reference="4pq-ID-iIK"/>
+                                <include reference="4ee-34-MZa"/>
+                                <include reference="vpR-3p-ZZu"/>
+                                <include reference="CJH-Hx-KNF"/>
+                                <include reference="GLP-na-ztp"/>
                             </mask>
                         </variation>
                     </view>
@@ -278,8 +270,10 @@
     <resources>
         <image name="Chipmunk" width="100" height="100"/>
         <image name="Darth" width="100" height="100"/>
+        <image name="Echo" width="100" height="100"/>
         <image name="Fast" width="100" height="100"/>
         <image name="Microphone" width="100" height="100"/>
+        <image name="Reverb" width="100" height="100"/>
         <image name="Slow" width="100" height="100"/>
         <image name="Stop" width="50" height="50"/>
     </resources>

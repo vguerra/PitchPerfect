@@ -12,7 +12,6 @@ import AVFoundation
 class PlaySoundsViewController: UIViewController {
 
     var receivedAudio: RecordedAudio!
-    
     var audioEngine: AVAudioEngine!
     var audioFile: AVAudioFile!
     
@@ -30,7 +29,7 @@ class PlaySoundsViewController: UIViewController {
     }
     
     @IBAction func playSlowAudio(sender: UIButton) {
-        playWithRateAndPitch(rate: 0.6)
+        playWithRateAndPitch(rate: 0.7)
     }
 
     @IBAction func playFastAudio(sender: UIButton) {
@@ -45,10 +44,6 @@ class PlaySoundsViewController: UIViewController {
         playWithRateAndPitch(pitch: -1000)
     }
     
-    @IBAction func stopAudio(sender: UIButton) {
-        stopAudioEngine()
-    }
-    
     @IBAction func playReverb(sender: UIButton) {
         let reverbNode = AVAudioUnitReverb()
         reverbNode.loadFactoryPreset(AVAudioUnitReverbPreset.Cathedral)
@@ -56,20 +51,16 @@ class PlaySoundsViewController: UIViewController {
         
         playAudioWithNodeEffect(reverbNode);
     }
-    
+
     @IBAction func playDelay(sender: UIButton) {
         let delayNode = AVAudioUnitDelay()
         delayNode.delayTime = 0.5
-
+        
         playAudioWithNodeEffect(delayNode)
     }
-    
-    @IBAction func playDistortion(sender: UIButton) {
-        let distortionNode = AVAudioUnitDistortion()
-        distortionNode.loadFactoryPreset(AVAudioUnitDistortionPreset.MultiBrokenSpeaker)
-        distortionNode.wetDryMix = 50.0
-        
-        playAudioWithNodeEffect(distortionNode)
+
+    @IBAction func stopAudio(sender: UIButton) {
+        stopAudioEngine()
     }
     
     func playWithRateAndPitch(rate: Float = 1.0, pitch: Float = 1.0) {
@@ -80,6 +71,7 @@ class PlaySoundsViewController: UIViewController {
         playAudioWithNodeEffect(withRatePitchNode)
 
     }
+    
     func playAudioWithVariablePitch(pitch: Float) {
         let changePitchNode = AVAudioUnitTimePitch()
         changePitchNode.pitch = pitch
@@ -87,6 +79,10 @@ class PlaySoundsViewController: UIViewController {
         playAudioWithNodeEffect(changePitchNode)
     }
     
+    /*!
+        Plays the audio file specified by the audioFile property with a given audio effect.
+        @param: audioNodeEffect The desired audio node effect that is used to stream the audio file through
+    */
     func playAudioWithNodeEffect(audioNodeEffect: AVAudioNode) {
         stopAudioEngine()
         
@@ -95,6 +91,7 @@ class PlaySoundsViewController: UIViewController {
         
         audioEngine.attachNode(audioNodeEffect)
         
+        // we proceed to make the proper node connections.
         audioEngine.connect(playerNode, to: audioNodeEffect, format: nil)
         audioEngine.connect(audioNodeEffect, to: audioEngine.outputNode, format: nil)
         
@@ -103,6 +100,7 @@ class PlaySoundsViewController: UIViewController {
         playerNode.play()
     }
     
+    /// Stops and resets the Audio Engine property.
     func stopAudioEngine() {
         audioEngine.stop()
         audioEngine.reset()
