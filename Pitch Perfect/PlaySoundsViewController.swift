@@ -18,7 +18,7 @@ class PlaySoundsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-//        // Do any additional setup after loading the view.
+        // Do any additional setup after loading the view.
         audioEngine = AVAudioEngine()
         audioFile = AVAudioFile(forReading: receivedAudio.filePathUrl, error: nil)
     }
@@ -54,7 +54,7 @@ class PlaySoundsViewController: UIViewController {
 
     @IBAction func playDelay(sender: UIButton) {
         let delayNode = AVAudioUnitDelay()
-        delayNode.delayTime = 0.5
+        delayNode.delayTime = 0.3
         
         playAudioWithNodeEffect(delayNode)
     }
@@ -63,6 +63,12 @@ class PlaySoundsViewController: UIViewController {
         stopAudioEngine()
     }
     
+    /*!
+        Apply all effects to audio that modify its rate and pitch values.
+        
+        @param rate Rate value the effect should apply. 1.0 by default.
+        @param pitch Pitch value the effect should apply. 1.0 by default.
+    */
     func playWithRateAndPitch(rate: Float = 1.0, pitch: Float = 1.0) {
         let withRatePitchNode = AVAudioUnitTimePitch()
         withRatePitchNode.rate = rate
@@ -71,14 +77,7 @@ class PlaySoundsViewController: UIViewController {
         playAudioWithNodeEffect(withRatePitchNode)
 
     }
-    
-    func playAudioWithVariablePitch(pitch: Float) {
-        let changePitchNode = AVAudioUnitTimePitch()
-        changePitchNode.pitch = pitch
-        
-        playAudioWithNodeEffect(changePitchNode)
-    }
-    
+
     /*!
         Plays the audio file specified by the audioFile property with a given audio effect.
         @param: audioNodeEffect The desired audio node effect that is used to stream the audio file through
@@ -100,7 +99,7 @@ class PlaySoundsViewController: UIViewController {
         playerNode.play()
     }
     
-    /// Stops and resets the Audio Engine property.
+    /// Stops and resets the Audio Engine.
     func stopAudioEngine() {
         audioEngine.stop()
         audioEngine.reset()
