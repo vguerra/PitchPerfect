@@ -71,14 +71,14 @@
                                 <exclude reference="GJR-90-63L"/>
                             </mask>
                             <mask key="constraints">
-                                <exclude reference="8ZR-oL-z8A"/>
-                                <exclude reference="bwS-f4-NDe"/>
+                                <exclude reference="SHK-6I-8A0"/>
                                 <exclude reference="Lgp-W2-9GS"/>
                                 <exclude reference="eif-pt-jsP"/>
                                 <exclude reference="8A1-94-Hon"/>
                                 <exclude reference="tsK-Wa-SpI"/>
+                                <exclude reference="8ZR-oL-z8A"/>
+                                <exclude reference="bwS-f4-NDe"/>
                                 <exclude reference="Ucr-0b-Uzn"/>
-                                <exclude reference="SHK-6I-8A0"/>
                             </mask>
                         </variation>
                         <variation key="widthClass=compact">
@@ -89,14 +89,14 @@
                                 <include reference="GJR-90-63L"/>
                             </mask>
                             <mask key="constraints">
-                                <include reference="8ZR-oL-z8A"/>
-                                <include reference="bwS-f4-NDe"/>
+                                <include reference="SHK-6I-8A0"/>
                                 <include reference="Lgp-W2-9GS"/>
                                 <include reference="eif-pt-jsP"/>
                                 <include reference="8A1-94-Hon"/>
                                 <include reference="tsK-Wa-SpI"/>
+                                <include reference="8ZR-oL-z8A"/>
+                                <include reference="bwS-f4-NDe"/>
                                 <include reference="Ucr-0b-Uzn"/>
-                                <include reference="SHK-6I-8A0"/>
                             </mask>
                         </variation>
                     </view>
