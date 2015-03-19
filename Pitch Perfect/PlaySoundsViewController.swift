@@ -12,7 +12,9 @@ import AVFoundation
 class PlaySoundsViewController: UIViewController {
 
     var receivedAudio: RecordedAudio!
+    /// The Audio Engine used to play Audio File + Effects
     var audioEngine: AVAudioEngine!
+    /// The Audio file object we receive from the Recording Screen
     var audioFile: AVAudioFile!
     
     override func viewDidLoad() {
@@ -75,7 +77,6 @@ class PlaySoundsViewController: UIViewController {
         withRatePitchNode.pitch = pitch
         
         playAudioWithNodeEffect(withRatePitchNode)
-
     }
 
     /*!
