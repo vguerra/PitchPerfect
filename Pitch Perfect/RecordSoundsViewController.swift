@@ -40,13 +40,16 @@ class RecordSoundsViewController: UIViewController, AVAudioRecorderDelegate {
         let pathArray = [dirPath, recordingName]
         let filePath = NSURL.fileURLWithPathComponents(pathArray)
         
-        var session = AVAudioSession.sharedInstance()
-        session.setCategory(AVAudioSessionCategoryPlayAndRecord, error: nil)
-        
-        audioRecorder = AVAudioRecorder(URL: filePath, settings: nil, error: nil)
-        audioRecorder.delegate = self
-        audioRecorder.meteringEnabled = true
-        audioRecorder.prepareToRecord()
+        let session = AVAudioSession.sharedInstance()
+        do {
+            try session.setCategory(AVAudioSessionCategoryPlayAndRecord)
+            
+            audioRecorder = try AVAudioRecorder(URL: filePath!, settings: [:])
+            audioRecorder.delegate = self
+            audioRecorder.meteringEnabled = true
+            audioRecorder.prepareToRecord()
+        } catch _ {
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -70,9 +73,12 @@ class RecordSoundsViewController: UIViewController, AVAudioRecorderDelegate {
     }
     
     @IBAction func stopRecordAudio() {
-        var audioSession = AVAudioSession.sharedInstance()
+        let audioSession = AVAudioSession.sharedInstance()
         audioRecorder.stop()
-        audioSession.setActive(false, error: nil)
+        do {
+            try audioSession.setActive(false)
+        } catch _ {
+        }
     }
 
     func updateRecordingLabel(text:String) {
@@ -80,7 +86,7 @@ class RecordSoundsViewController: UIViewController, AVAudioRecorderDelegate {
         recordingLabel.sizeToFit()
     }
     
-    func audioRecorderDidFinishRecording(recorder: AVAudioRecorder!, successfully flag: Bool) {
+    func audioRecorderDidFinishRecording(recorder: AVAudioRecorder, successfully flag: Bool) {
         if (flag) {
             recordedAudio = RecordedAudio(filePathUrl: recorder.url, title: recorder.url.lastPathComponent!)
             self.performSegueWithIdentifier("stopRecording", sender: recordedAudio)
@@ -89,9 +95,10 @@ class RecordSoundsViewController: UIViewController, AVAudioRecorderDelegate {
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if (segue.identifier == "stopRecording") {
-            let playSoundsVC = segue.destinationViewController as PlaySoundsViewController
-            let data = sender as RecordedAudio
+            let playSoundsVC = segue.destinationViewController as! PlaySoundsViewController
+            let data = sender as! RecordedAudio
             playSoundsVC.receivedAudio = data
+            print("data \(data)")
         }
     }
     

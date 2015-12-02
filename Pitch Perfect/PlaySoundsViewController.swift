@@ -22,15 +22,15 @@ class PlaySoundsViewController: UIViewController {
 
         // Do any additional setup after loading the view.
         audioEngine = AVAudioEngine()
-        audioFile = AVAudioFile(forReading: receivedAudio.filePathUrl, error: nil)
+        audioFile = try? AVAudioFile(forReading: receivedAudio.filePathUrl)
     }
 
     @IBAction func playSlowAudio(sender: UIButton) {
-        playWithRateAndPitch(rate: 0.7)
+        playWithRateAndPitch(0.7)
     }
 
     @IBAction func playFastAudio(sender: UIButton) {
-        playWithRateAndPitch(rate: 2.0)
+        playWithRateAndPitch(2.0)
     }
     
     @IBAction func playChipmunk(sender: UIButton) {
@@ -91,7 +91,10 @@ class PlaySoundsViewController: UIViewController {
         audioEngine.connect(audioNodeEffect, to: audioEngine.outputNode, format: nil)
         
         playerNode.scheduleFile(audioFile, atTime: nil, completionHandler: nil)
-        audioEngine.startAndReturnError(nil)
+        do {
+            try audioEngine.start()
+        } catch _ {
+        }
         playerNode.play()
     }
     
